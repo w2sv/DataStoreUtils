@@ -1,9 +1,9 @@
-# PreferencesDataStoreRepository
+# DataStoreUtils
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/w2sv/PreferencesDataStoreRepository?include_prereleases)
-[![](https://jitpack.io/v/w2sv/PreferencesDataStoreRepository.svg)](https://jitpack.io/#w2sv/PreferencesDataStoreRepository)
-[![Build](https://github.com/w2sv/PreferencesDataStoreRepository/actions/workflows/workflow.yaml/badge.svg)](https://github.com/w2sv/PreferencesDataStoreRepository/actions/workflows/workflow.yaml)
-![GitHub](https://img.shields.io/github/license/w2sv/PreferencesDataStoreRepository)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/w2sv/DataStoreUtils?include_prereleases)
+[![](https://jitpack.io/v/w2sv/DataStoreUtils.svg)](https://jitpack.io/#w2sv/DataStoreUtils)
+[![Build](https://github.com/w2sv/DataStoreUtils/actions/workflows/workflow.yaml/badge.svg)](https://github.com/w2sv/DataStoreUtils/actions/workflows/workflow.yaml)
+![GitHub](https://img.shields.io/github/license/w2sv/DataStoreUtils)
 
 A repository that facilitates working with the Preferences DataStore.
 
@@ -21,9 +21,9 @@ Add the dependency:
 
 ```kotlin
 dependencies {
-    implementation("com.github.w2sv:PreferencesDataStoreRepository:version")
+    implementation("com.github.w2sv.DataStoreUtils:preferences:version")
     // Or get the latest snapshot of a certain branch:
-    implementation("com.github.w2sv:PreferencesDataStoreRepository:branchname-snapshot")
+    implementation("com.github.w2sv.DataStoreUtils:preferences:branchname-snapshot")
 }
 ```
 

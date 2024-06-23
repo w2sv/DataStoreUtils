@@ -46,7 +46,7 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.w2sv.datastoreutils.preferences"
-            artifactId = "datastoreutils.preferences"
+            artifactId = "preferences"
             version = version.toString()
             afterEvaluate {
                 from(components["release"])
