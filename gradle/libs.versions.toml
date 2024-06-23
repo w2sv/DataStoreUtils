@@ -6,13 +6,17 @@ java = "17"
 kotlin = "2.0.0"
 agp = "8.3.2"
 
+kotlinx-coroutines = "1.8.1"
+
 [libraries]
 kotlinutils = "com.github.w2sv:KotlinUtils:0.1.1-rc1"
-kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 androidx-datastore-preferences = 'androidx.datastore:datastore-preferences:1.1.1'
 slimber = "com.github.PaulWoitaschek:Slimber:2.0.0"
 #junit = "junit:junit:4.13.2"
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

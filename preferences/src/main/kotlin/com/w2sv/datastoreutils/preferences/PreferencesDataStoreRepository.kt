@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.w2sv.preferences_datastore_repository
+package com.w2sv.datastoreutils.preferences
 
 import android.net.Uri
 import android.os.Build
@@ -9,8 +9,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.w2sv.preferences_datastore_repository.flow.DataStoreFlow
-import com.w2sv.preferences_datastore_repository.flow.DataStoreFlowMap
+import com.w2sv.datastoreutils.datastoreflow.DataStoreFlow
+import com.w2sv.datastoreutils.preferences.map.DataStoreEntry
+import com.w2sv.datastoreutils.preferences.map.DataStoreFlowMap
 import com.w2sv.kotlinutils.generic.enumEntryByOrdinal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -208,7 +209,8 @@ abstract class PreferencesDataStoreRepository(
         DataStoreFlow(default = default, flow = getFlow(key, default), save = { save(key, it) })
 
     protected inline fun <reified E : Enum<E>> dataStoreFlow(
-        key: Preferences.Key<Int>, default: E
+        key: Preferences.Key<Int>,
+        default: E
     ): DataStoreFlow<E> =
         DataStoreFlow(
             default = default,

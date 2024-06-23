@@ -9,7 +9,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.w2sv.preferences_data_store"
+    namespace = "com.w2sv.datastoreutils.preferences"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -45,8 +45,8 @@ android {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.w2sv.preferences_datastore_repository"
-            artifactId = "preferences_datastore_repository"
+            groupId = "com.w2sv.datastoreutils.preferences"
+            artifactId = "datastoreutils.preferences"
             version = version.toString()
             afterEvaluate {
                 from(components["release"])
@@ -58,8 +58,8 @@ publishing {
                         name.set("Janek Zangenberg")
                     }
                 }
-                description.set("A repository that facilitates working with the Preferences DataStore.")
-                url.set("https://github.com/w2sv/PreferencesDataStoreRepository")
+                description.set("Utilities for working with the androidx DataStore.")
+                url.set("https://github.com/w2sv/DataStoreUtils")
                 licenses {
                     license {
                         name.set("The Apache Software License, Version 2.0")
@@ -72,6 +72,7 @@ publishing {
 }
 
 dependencies {
+    api(project(":datastoreflow"))
     api(libs.androidx.datastore.preferences)
     implementation(libs.slimber)
     implementation(libs.kotlinutils)

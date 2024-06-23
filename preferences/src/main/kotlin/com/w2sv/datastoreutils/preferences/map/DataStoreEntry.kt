@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.w2sv.preferences_datastore_repository
+package com.w2sv.datastoreutils.preferences.map
 
 import android.net.Uri
 import androidx.datastore.preferences.core.Preferences

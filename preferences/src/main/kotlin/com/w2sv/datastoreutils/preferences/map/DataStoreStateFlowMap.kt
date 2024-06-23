@@ -1,6 +1,5 @@
-package com.w2sv.preferences_datastore_repository.flow
+package com.w2sv.datastoreutils.preferences.map
 
-import com.w2sv.preferences_datastore_repository.DataStoreEntry
 import kotlinx.coroutines.flow.StateFlow
 
 class DataStoreStateFlowMap<K, V>(
