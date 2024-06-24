@@ -45,7 +45,7 @@ android {
 publishing {
     publications {
         register<MavenPublication>("release") {
-            groupId = "com.w2sv.datastoreutils.preferences"
+            groupId = "com.w2sv.datastoreutils"
             artifactId = "preferences"
             version = version.toString()
             afterEvaluate {
@@ -72,7 +72,7 @@ publishing {
 }
 
 dependencies {
-    api(project(":datastoreflow"))
+    api(project(":datastoreutils:datastoreflow"))
     api(libs.androidx.datastore.preferences)
     implementation(libs.slimber)
     implementation(libs.kotlinutils)

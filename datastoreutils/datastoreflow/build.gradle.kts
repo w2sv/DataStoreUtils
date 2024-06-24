@@ -10,7 +10,7 @@ kotlin {
 publishing {
     publications {
         register<MavenPublication>("mavenJava") {
-            groupId = "com.w2sv.datastoreutils.datastoreflow"
+            groupId = "com.w2sv.datastoreutils"
             artifactId = "datastoreflow"
             version = version.toString()
             afterEvaluate {

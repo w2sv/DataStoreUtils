@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":datastoreflow")
-include(":preferences")
+include(":datastoreutils:datastoreflow")
+include(":datastoreutils:preferences")
