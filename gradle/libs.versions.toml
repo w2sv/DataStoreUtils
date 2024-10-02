@@ -3,7 +3,7 @@ minSdk = "21"
 compileSdk = "34"
 
 java = "17"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 agp = "8.3.2"
 
 kotlinx-coroutines = "1.8.1"
@@ -12,7 +12,7 @@ kotlinx-coroutines = "1.8.1"
 kotlinutils = "com.github.w2sv:KotlinUtils:0.1.1-rc1"
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-androidx-datastore-preferences = 'androidx.datastore:datastore-preferences:1.1.1'
+androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.1.1"
 slimber = "com.github.PaulWoitaschek:Slimber:2.0.0"
 #junit = "junit:junit:4.13.2"
 

@@ -38,4 +38,5 @@ publishing {
 
 dependencies {
     implementation(libs.kotlinx.coroutines)
+    implementation(libs.kotlinutils)
 }
