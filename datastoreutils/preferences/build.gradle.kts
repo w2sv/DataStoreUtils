@@ -76,7 +76,7 @@ dependencies {
     api(project(":datastoreutils:datastoreflow"))
     api(libs.androidx.datastore.preferences)
     implementation(libs.slimber)
-    implementation(libs.kotlinutils)
+    implementation(libs.w2sv.kotlinutils)
     implementation(libs.kotlinx.coroutines.android)
 //    testImplementation(libs.junit)
 }

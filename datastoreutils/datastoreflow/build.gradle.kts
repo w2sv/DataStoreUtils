@@ -39,5 +39,5 @@ publishing {
 
 dependencies {
     implementation(libs.kotlinx.coroutines)
-    implementation(libs.kotlinutils)
+    implementation(libs.w2sv.kotlinutils)
 }
