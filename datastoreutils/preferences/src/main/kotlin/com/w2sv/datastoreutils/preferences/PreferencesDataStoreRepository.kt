@@ -12,7 +12,7 @@ import androidx.datastore.preferences.core.edit
 import com.w2sv.datastoreutils.datastoreflow.DataStoreFlow
 import com.w2sv.datastoreutils.preferences.map.DataStoreEntry
 import com.w2sv.datastoreutils.preferences.map.DataStoreFlowMap
-import com.w2sv.kotlinutils.generic.enumEntryByOrdinal
+import com.w2sv.kotlinutils.enumEntryByOrdinal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

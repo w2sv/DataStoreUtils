@@ -2,7 +2,7 @@
 
 package com.w2sv.datastoreutils.datastoreflow
 
-import com.w2sv.kotlinutils.coroutines.firstBlocking
+import com.w2sv.kotlinutils.coroutines.flow.firstBlocking
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
