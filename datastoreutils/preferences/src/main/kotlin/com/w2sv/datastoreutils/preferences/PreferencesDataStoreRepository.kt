@@ -13,12 +13,12 @@ import com.w2sv.datastoreutils.datastoreflow.DataStoreFlow
 import com.w2sv.datastoreutils.preferences.map.DataStoreEntry
 import com.w2sv.datastoreutils.preferences.map.DataStoreFlowMap
 import com.w2sv.kotlinutils.enumEntryByOrdinal
+import java.time.LocalDateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import slimber.log.i
-import java.time.LocalDateTime
 
 abstract class PreferencesDataStoreRepository(
     val dataStore: DataStore<Preferences>
@@ -60,14 +60,16 @@ abstract class PreferencesDataStoreRepository(
     // URIs
     // ================
 
-    fun getUriFlow(
-        preferencesKey: Preferences.Key<String>, defaultValue: Uri?
-    ): Flow<Uri?> = dataStore.data.map {
-        it[preferencesKey]?.let { string ->
-            if (string == DEFAULT_STRING_VALUE) null
-            else Uri.parse(string)
-        } ?: defaultValue
-    }
+    fun getUriFlow(preferencesKey: Preferences.Key<String>, defaultValue: Uri?): Flow<Uri?> =
+        dataStore.data.map {
+            it[preferencesKey]?.let { string ->
+                if (string == DEFAULT_STRING_VALUE) {
+                    null
+                } else {
+                    Uri.parse(string)
+                }
+            } ?: defaultValue
+        }
 
     fun getUriFlow(entry: DataStoreEntry.UriValued): Flow<Uri?> =
         getUriFlow(entry.preferencesKey, entry.defaultValue)
@@ -77,14 +79,16 @@ abstract class PreferencesDataStoreRepository(
     // ================
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getLocalDateTimeFlow(
-        preferencesKey: Preferences.Key<String>, defaultValue: LocalDateTime?
-    ): Flow<LocalDateTime?> = dataStore.data.map {
-        it[preferencesKey]?.let { string ->
-            if (string == DEFAULT_STRING_VALUE) null
-            else LocalDateTime.parse(string)
-        } ?: defaultValue
-    }
+    fun getLocalDateTimeFlow(preferencesKey: Preferences.Key<String>, defaultValue: LocalDateTime?): Flow<LocalDateTime?> =
+        dataStore.data.map {
+            it[preferencesKey]?.let { string ->
+                if (string == DEFAULT_STRING_VALUE) {
+                    null
+                } else {
+                    LocalDateTime.parse(string)
+                }
+            } ?: defaultValue
+        }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getLocalDateTimeFlow(entry: DataStoreEntry.LocalDateTimeValued): Flow<LocalDateTime?> =
@@ -102,25 +106,21 @@ abstract class PreferencesDataStoreRepository(
     // Enums
     // ============
 
-    inline fun <reified E : Enum<E>> getEnumFlow(
-        preferencesKey: Preferences.Key<Int>, defaultValue: E
-    ): Flow<E> = dataStore.data.map {
-        it[preferencesKey]?.let { ordinal ->
-            try {
-                enumEntryByOrdinal<E>(ordinal)
-            } catch (e: IndexOutOfBoundsException) {
-                defaultValue
-            }
-        } ?: defaultValue
-    }
+    inline fun <reified E : Enum<E>> getEnumFlow(preferencesKey: Preferences.Key<Int>, defaultValue: E): Flow<E> =
+        dataStore.data.map {
+            it[preferencesKey]?.let { ordinal ->
+                try {
+                    enumEntryByOrdinal<E>(ordinal)
+                } catch (e: IndexOutOfBoundsException) {
+                    defaultValue
+                }
+            } ?: defaultValue
+        }
 
-    inline fun <reified E : Enum<E>> getEnumFlow(
-        entry: DataStoreEntry.EnumValued<E>
-    ): Flow<E> = getEnumFlow(entry.preferencesKey, entry.defaultValue)
+    inline fun <reified E : Enum<E>> getEnumFlow(entry: DataStoreEntry.EnumValued<E>): Flow<E> =
+        getEnumFlow(entry.preferencesKey, entry.defaultValue)
 
-    suspend fun save(
-        preferencesKey: Preferences.Key<Int>, value: Enum<*>
-    ) {
+    suspend fun save(preferencesKey: Preferences.Key<Int>, value: Enum<*>) {
         withContext(Dispatchers.IO) {
             dataStore.edit {
                 it.save(preferencesKey, value.ordinal)
@@ -176,13 +176,12 @@ abstract class PreferencesDataStoreRepository(
 
     inline fun <DSE : DataStoreEntry.EnumValued<V>, reified V : Enum<V>> getEnumValuedFlowMap(
         properties: Iterable<DSE>
-    ): Map<DSE, Flow<V>> = properties.associateWith { property ->
-        getEnumFlow(property.preferencesKey, property.defaultValue)
-    }
+    ): Map<DSE, Flow<V>> =
+        properties.associateWith { property ->
+            getEnumFlow(property.preferencesKey, property.defaultValue)
+        }
 
-    suspend fun <DSE : DataStoreEntry.EnumValued<V>, V : Enum<V>> saveEnumValuedMap(
-        map: Map<DSE, V>
-    ) {
+    suspend fun <DSE : DataStoreEntry.EnumValued<V>, V : Enum<V>> saveEnumValuedMap(map: Map<DSE, V>) {
         withContext(Dispatchers.IO) {
             dataStore.edit {
                 map.forEach { (entry, value) ->
@@ -196,40 +195,33 @@ abstract class PreferencesDataStoreRepository(
     // DataStoreFlow
     // ============
 
-    protected fun <T> dataStoreFlow(
-        key: Preferences.Key<T>,
-        default: T
-    ): DataStoreFlow<T> =
+    protected fun <T> dataStoreFlow(key: Preferences.Key<T>, default: T): DataStoreFlow<T> =
         DataStoreFlow(default = default, flow = getFlow(key, default), save = { save(key, it) })
 
-    protected fun <T> optionalDataStoreFlow(
-        key: Preferences.Key<T?>,
-        default: T?
-    ): DataStoreFlow<T?> =
+    protected fun <T> optionalDataStoreFlow(key: Preferences.Key<T?>, default: T?): DataStoreFlow<T?> =
         DataStoreFlow(default = default, flow = getFlow(key, default), save = { save(key, it) })
 
-    protected inline fun <reified E : Enum<E>> dataStoreFlow(
-        key: Preferences.Key<Int>,
-        default: E
-    ): DataStoreFlow<E> =
+    protected inline fun <reified E : Enum<E>> dataStoreFlow(key: Preferences.Key<Int>, default: E): DataStoreFlow<E> =
         DataStoreFlow(
             default = default,
             flow = getEnumFlow<E>(key, default),
             save = { save(key, it) }
         )
 
-    protected fun dataStoreUriFlow(
-        key: Preferences.Key<String>, default: Uri?
-    ): DataStoreFlow<Uri?> = DataStoreFlow(default = default,
-        flow = getUriFlow(key, default),
-        save = { saveStringRepresentation(key, it) })
+    protected fun dataStoreUriFlow(key: Preferences.Key<String>, default: Uri?): DataStoreFlow<Uri?> =
+        DataStoreFlow(
+            default = default,
+            flow = getUriFlow(key, default),
+            save = { saveStringRepresentation(key, it) }
+        )
 
     @RequiresApi(Build.VERSION_CODES.O)
-    protected fun dataStoreLocalDateTimeFlow(
-        key: Preferences.Key<String>, default: LocalDateTime?
-    ): DataStoreFlow<LocalDateTime?> = DataStoreFlow(default = default,
-        flow = getLocalDateTimeFlow(key, default),
-        save = { saveStringRepresentation(key, it) })
+    protected fun dataStoreLocalDateTimeFlow(key: Preferences.Key<String>, default: LocalDateTime?): DataStoreFlow<LocalDateTime?> =
+        DataStoreFlow(
+            default = default,
+            flow = getLocalDateTimeFlow(key, default),
+            save = { saveStringRepresentation(key, it) }
+        )
 }
 
 private const val DEFAULT_STRING_VALUE = ""
@@ -239,8 +231,6 @@ private fun <T> MutablePreferences.save(preferencesKey: Preferences.Key<T>, valu
     i { "Saved ${preferencesKey.name}=$value" }
 }
 
-private fun MutablePreferences.saveStringRepresentation(
-    preferencesKey: Preferences.Key<String>, value: Any?
-) {
+private fun MutablePreferences.saveStringRepresentation(preferencesKey: Preferences.Key<String>, value: Any?) {
     save(preferencesKey, value?.toString() ?: DEFAULT_STRING_VALUE)
 }

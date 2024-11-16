@@ -29,9 +29,7 @@ class DataStoreFlow<V>(
             save = save
         )
 
-    fun stateInWithSynchronousInitial(
-        scope: CoroutineScope
-    ): DataStoreStateFlow<V> =
+    fun stateInWithSynchronousInitial(scope: CoroutineScope): DataStoreStateFlow<V> =
         DataStoreStateFlow(
             flow = this,
             default = firstBlocking(),
