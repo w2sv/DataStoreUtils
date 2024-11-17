@@ -201,14 +201,14 @@ abstract class PreferencesDataStoreRepository(
     protected fun <T> optionalDataStoreFlow(key: Preferences.Key<T?>, default: () -> T?): DataStoreFlow<T?> =
         DataStoreFlow(default = default, flow = getFlow(key, default), save = { save(key, it) })
 
-    protected inline fun <reified E : Enum<E>> dataStoreFlow(key: Preferences.Key<Int>, noinline default: () -> E): DataStoreFlow<E> =
+    protected inline fun <reified E : Enum<E>> enumDataStoreFlow(key: Preferences.Key<Int>, noinline default: () -> E): DataStoreFlow<E> =
         DataStoreFlow(
             default = default,
             flow = getEnumFlow<E>(key, default),
             save = { save(key, it) }
         )
 
-    protected fun dataStoreUriFlow(key: Preferences.Key<String>, default: () -> Uri?): DataStoreFlow<Uri?> =
+    protected fun uriDataStoreFlow(key: Preferences.Key<String>, default: () -> Uri?): DataStoreFlow<Uri?> =
         DataStoreFlow(
             default = default,
             flow = getUriFlow(key, default),
@@ -241,7 +241,7 @@ abstract class PreferencesDataStoreRepository(
         )
 
     @RequiresApi(Build.VERSION_CODES.O)
-    protected fun dataStoreLocalDateTimeFlow(key: Preferences.Key<String>, default: () -> LocalDateTime?): DataStoreFlow<LocalDateTime?> =
+    protected fun localDateTimeDataStoreFlow(key: Preferences.Key<String>, default: () -> LocalDateTime?): DataStoreFlow<LocalDateTime?> =
         DataStoreFlow(
             default = default,
             flow = getLocalDateTimeFlow(key, default),

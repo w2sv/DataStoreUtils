@@ -22,7 +22,7 @@ class DataStoreFlowMap<K, V>(
                 v.stateIn(
                     scope,
                     started,
-                    keyToDse.getValue(k).defaultValue
+                    keyToDse.getValue(k).defaultValue()
                 )
             },
             keyToDse = keyToDse,
