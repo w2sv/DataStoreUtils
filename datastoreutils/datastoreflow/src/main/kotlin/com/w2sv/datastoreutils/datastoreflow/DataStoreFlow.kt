@@ -12,18 +12,18 @@ import kotlinx.coroutines.flow.SharingStarted
  */
 class DataStoreFlow<V>(
     flow: Flow<V>,
-    val default: V,
+    val default: () -> V,
     val save: suspend (V) -> Unit
 ) : Flow<V> by flow {
 
     fun stateIn(
         scope: CoroutineScope,
         started: SharingStarted,
-        default: V = this.default
+        default: () -> V = this.default
     ): DataStoreStateFlow<V> =
         DataStoreStateFlow(
             flow = this,
-            default = default,
+            default = default(),
             scope = scope,
             started = started,
             save = save
