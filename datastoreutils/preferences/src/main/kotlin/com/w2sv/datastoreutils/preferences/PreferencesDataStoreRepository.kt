@@ -13,12 +13,12 @@ import com.w2sv.datastoreutils.datastoreflow.DataStoreFlow
 import com.w2sv.datastoreutils.preferences.map.DataStoreEntry
 import com.w2sv.datastoreutils.preferences.map.DataStoreFlowMap
 import com.w2sv.kotlinutils.enumEntryByOrdinal
-import java.time.LocalDateTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import slimber.log.i
+import java.time.LocalDateTime
 
 abstract class PreferencesDataStoreRepository(
     val dataStore: DataStore<Preferences>
@@ -226,6 +226,20 @@ abstract class PreferencesDataStoreRepository(
             default = default,
             toSavable = serialize,
             toExternal = deserialize
+        )
+
+    protected fun <T> listDataStoreFlow(
+        key: Preferences.Key<String>,
+        default: () -> List<T>,
+        separator: String = ",",
+        serializeElement: (T) -> String,
+        deserializeElement: (String) -> T
+    ): DataStoreFlow<List<T>> =
+        dataStoreFlow(
+            key = key,
+            default = default,
+            toSavable = { it.joinToString(separator = separator, transform = serializeElement) },
+            toExternal = { it.split(separator).map(deserializeElement) }
         )
 
     protected fun <External, Savable> dataStoreFlow(
