@@ -8,6 +8,8 @@ agp = "8.6.1"
 ktlint = "12.1.1"
 
 kotlinx-coroutines = "1.9.0"
+versionCatalogUpdate = "1.0.0"
+versions = "0.52.0"
 
 [libraries]
 w2sv-kotlinutils = "com.github.w2sv:KotlinUtils:0.1.5-rc2"
@@ -16,10 +18,11 @@ kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.1.1"
 slimber = "com.github.PaulWoitaschek:Slimber:2.0.0"
-#junit = "junit:junit:4.13.2"
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
